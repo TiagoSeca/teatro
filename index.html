@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Folha de Sala - FlipBook</title>
+  <title>Flip Básico</title>
   <style>
     body {
       margin: 0;
@@ -11,67 +11,66 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background-color: #fdfdfd;
+      background: #fdfdfd;
+      perspective: 1000px; /* necessário para 3D flip */
     }
 
-    #flipbook {
-      width: 90%;
-      max-width: 600px;
-      height: 90%;
-      max-height: 800px;
-      perspective: 1000px;
+    .flip-container {
+      width: 300px;
+      max-width: 90%;
+      height: 400px;
       position: relative;
     }
 
-    .pagina {
+    input[type="checkbox"] {
+      display: none;
+    }
+
+    .flipper {
       width: 100%;
       height: 100%;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-      border-radius: 8px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease;
       cursor: pointer;
+    }
+
+    /* Se checked, vira */
+    input[type="checkbox"]:checked + .flipper {
+      transform: rotateY(180deg);
+    }
+
+    .front, .back {
       position: absolute;
-      top: 0;
-      left: 0;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
-    .is-active {
-      z-index: 2;
+    .front {
+      background-image: url('p1.jpg');
     }
 
-    .was-active {
-      z-index: 1;
+    .back {
+      transform: rotateY(180deg);
+      background-image: url('p2.jpg');
     }
   </style>
 </head>
 <body>
 
-  <div id="flipbook">
-    <div class="pagina" style="background-image:url('p1.jpg')"></div>
-    <div class="pagina" style="background-image:url('p2.jpg')"></div>
-  </div>
-
-  <script src="flipbook.js"></script>
-
-  <script>
-    window.addEventListener("DOMContentLoaded", () => {
-      // Inicializa o FlipBook
-      const book = new FlipBook("flipbook", {
-        arrowKeys: true,
-        canClose: false,
-        initialActivePage: 0
-      });
-
-      // Faz o clique virar página
-      document.querySelectorAll("#flipbook .pagina").forEach(page => {
-        page.addEventListener("click", () => {
-          book.turnPage("forward");
-        });
-      });
-    });
-  </script>
+  <label class="flip-container">
+    <input type="checkbox">
+    <div class="flipper">
+      <div class="front"></div>
+      <div class="back"></div>
+    </div>
+  </label>
 
 </body>
 </html>
