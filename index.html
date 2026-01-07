@@ -20,6 +20,7 @@
       height: 90%;
       max-height: 800px;
       perspective: 1000px;
+      position: relative;
     }
 
     .pagina {
@@ -30,26 +31,44 @@
       background-position: center;
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
       border-radius: 8px;
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .is-active {
+      z-index: 2;
+    }
+
+    .was-active {
+      z-index: 1;
     }
   </style>
 </head>
 <body>
 
   <div id="flipbook">
-    <div class="pagina" style="background-image: url('p1.jpg')"></div>
-    <div class="pagina" style="background-image: url('p2.jpg')"></div>
+    <div class="pagina" style="background-image:url('p1.jpg')"></div>
+    <div class="pagina" style="background-image:url('p2.jpg')"></div>
   </div>
 
-  <!-- Aqui adiciona o teu JS FlipBook -->
   <script src="flipbook.js"></script>
 
   <script>
-    // Inicializa o FlipBook
     window.addEventListener("DOMContentLoaded", () => {
-      new FlipBook("flipbook", {
-        arrowKeys: true,  // Permite usar setas
-        canClose: false,  // Sem capa fechável
+      // Inicializa o FlipBook
+      const book = new FlipBook("flipbook", {
+        arrowKeys: true,
+        canClose: false,
         initialActivePage: 0
+      });
+
+      // Faz o clique virar página
+      document.querySelectorAll("#flipbook .pagina").forEach(page => {
+        page.addEventListener("click", () => {
+          book.turnPage("forward");
+        });
       });
     });
   </script>
