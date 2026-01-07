@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Folha de Sala - Page Flip</title>
+  <title>Folha de Sala - Folheável</title>
   <style>
     body {
       margin: 0;
@@ -34,22 +34,29 @@
 </head>
 <body>
 
-  <div id="book">
-    <div class="page" style="background-image: url('p1.jpg');"></div>
-    <div class="page" style="background-image: url('p2.jpg');"></div>
-  </div>
+  <div id="book"></div>
 
-  <!-- StPageFlip library -->
+  <!-- Biblioteca StPageFlip -->
   <script src="https://cdn.jsdelivr.net/npm/stpageflip/dist/js/page-flip.browser.min.js"></script>
   <script>
-    const pageFlip = new St.PageFlip.PageFlip(document.getElementById('book'), {
-      width: document.getElementById('book').clientWidth,
-      height: document.getElementById('book').clientHeight,
-      size: 'stretch',        // ajusta à tela
+    // Cria instância do livro
+    const book = new St.PageFlip.PageFlip(document.getElementById("book"), {
+      width: document.getElementById("book").clientWidth,
+      height: document.getElementById("book").clientHeight,
+      size: "stretch",        // ajusta à tela
       maxShadowOpacity: 0.5,  // sombra da página
       drawShadow: true,
       flippingTime: 700,      // velocidade da animação
-      usePortrait: false
     });
 
-    pageFlip.l
+    // Páginas do livro
+    book.loadFromHTML([
+      `<div class="page" style="background-image:url('p1.jpg')"></div>`,
+      `<div class="page" style="background-image:url('p2.jpg')"></div>`
+    ]);
+
+    // Faz o livro iniciar
+    book.renderTo(document.getElementById("book"));
+  </script>
+</body>
+</html>
