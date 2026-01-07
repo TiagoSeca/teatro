@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Folha de Sala - Folheável</title>
+  <title>Folha de Sala - FlipBook</title>
   <style>
     body {
       margin: 0;
@@ -14,14 +14,15 @@
       background-color: #fdfdfd;
     }
 
-    #book {
+    #flipbook {
       width: 90%;
       max-width: 600px;
       height: 90%;
       max-height: 800px;
+      perspective: 1000px;
     }
 
-    .page {
+    .pagina {
       width: 100%;
       height: 100%;
       background-size: contain;
@@ -34,29 +35,24 @@
 </head>
 <body>
 
-  <div id="book"></div>
+  <div id="flipbook">
+    <div class="pagina" style="background-image: url('p1.jpg')"></div>
+    <div class="pagina" style="background-image: url('p2.jpg')"></div>
+  </div>
 
-  <!-- Biblioteca StPageFlip -->
-  <script src="https://cdn.jsdelivr.net/npm/stpageflip/dist/js/page-flip.browser.min.js"></script>
+  <!-- Aqui adiciona o teu JS FlipBook -->
+  <script src="flipbook.js"></script>
+
   <script>
-    // Cria instância do livro
-    const book = new St.PageFlip.PageFlip(document.getElementById("book"), {
-      width: document.getElementById("book").clientWidth,
-      height: document.getElementById("book").clientHeight,
-      size: "stretch",        // ajusta à tela
-      maxShadowOpacity: 0.5,  // sombra da página
-      drawShadow: true,
-      flippingTime: 700,      // velocidade da animação
+    // Inicializa o FlipBook
+    window.addEventListener("DOMContentLoaded", () => {
+      new FlipBook("flipbook", {
+        arrowKeys: true,  // Permite usar setas
+        canClose: false,  // Sem capa fechável
+        initialActivePage: 0
+      });
     });
-
-    // Páginas do livro
-    book.loadFromHTML([
-      `<div class="page" style="background-image:url('p1.jpg')"></div>`,
-      `<div class="page" style="background-image:url('p2.jpg')"></div>`
-    ]);
-
-    // Faz o livro iniciar
-    book.renderTo(document.getElementById("book"));
   </script>
+
 </body>
 </html>
