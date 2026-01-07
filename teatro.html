@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Folha de Sala - Page Flip</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #fdfdfd;
+    }
+
+    #book {
+      width: 90%;
+      max-width: 600px;
+      height: 90%;
+      max-height: 800px;
+    }
+
+    .page {
+      width: 100%;
+      height: 100%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="book">
+    <div class="page" style="background-image: url('p1.jpg');"></div>
+    <div class="page" style="background-image: url('p2.jpg');"></div>
+  </div>
+
+  <!-- StPageFlip library -->
+  <script src="https://cdn.jsdelivr.net/npm/stpageflip/dist/js/page-flip.browser.min.js"></script>
+  <script>
+    const pageFlip = new St.PageFlip.PageFlip(document.getElementById('book'), {
+      width: document.getElementById('book').clientWidth,
+      height: document.getElementById('book').clientHeight,
+      size: 'stretch',        // ajusta à tela
+      maxShadowOpacity: 0.5,  // sombra da página
+      drawShadow: true,
+      flippingTime: 700,      // velocidade da animação
+      usePortrait: false
+    });
+
+    pageFlip.l
